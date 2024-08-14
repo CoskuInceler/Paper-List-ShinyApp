@@ -1,0 +1,62 @@
+Names,Steps,Groups,Definition,Groups.type,size
+Software,Software,Software,Software used for fMRI image preprocessing.,5,220
+S-INU_correction,INUCorr,Structural_preprocessing,Correction of intensity non-uniformity.,6,30
+S-Denoised,StructDenoise,Structural_preprocessing,"Anatomical T1 images were denoised with non-local means (Manj<U+00F3>n et al., 2010).",6,1
+S-Gradient_Distortion_Correction,GradDistCorr,Structural_preprocessing,Introduced by the HCP team by using a customized version of the gradient_nonlin_unwarp in FreeSurfer. This requires files describing gradient nonlinearities. It is performed to correct distortion and improve the registration between functional and structural images.,6,24
+S-Fuse_conform,FuseConform,Structural_preprocessing,Fuse multiple T1w volumes  (when several T1w volumes are found).,6,0
+S-Skull_stripping,StructSkullStrip,Structural_preprocessing,Remove the non-brain tissue (structural images).,6,46
+S-Spatial_normalization,StructSpaNorm,Structural_preprocessing,"Normalization to standard space (MNI (Montreal Neurological Institute), Talairach, or others).",6,82
+S-BBR_crossmodal_registration,StructBBRReg,Structural_preprocessing,Registration of T1w and T2w.,6,23
+S-Surface_reconstruction,StructSurface,Structural_preprocessing,Transformation from volumetric space to surface.,6,2
+S-Segmentation,StructSegment,Structural_preprocessing,"Brain segmentation into white matter, grey matter, and cerebrospinal fluid.",6,72
+F-Exclusion,SubjExclude,Functional_preprocessing,"Exclusion of individuals based on some thresholds (DVARS, FD, movement).",2,41
+F-Concatenate_Runs,RunConcat,Functional_preprocessing,"If there are more than one runs (resting), this step concatenate the time series across runs.",2,2
+F-Removal_Init_Vol,InitVolRemove,Functional_preprocessing,Removing initial volume of functional images to reach the steady state condition.,2,94
+F-Skull_extraction,FuncSkullStrip,Functional_preprocessing,Remove the non-brain tissue (functional images).,2,18
+F-Alignment/Head_motion_est,Alignment,Functional_preprocessing,"Correcting for head motion by aligning the fMRI volumes to a reference volume (first, middle, mean, etc). In addition, head motion parameter are also estimated.",2,207
+F-Despiking,Despike,Functional_preprocessing,Truncating large spikes in fMRI time series.,2,19
+F-Scrubbing,Scrub,Functional_preprocessing,"Also known as censoring, to remove volume with high head motion.",2,67
+F-Interpolate,Interpolate,Functional_preprocessing,Interpolating the volumes that were scrubbed.,2,15
+F-Slice_timing_correction,SliceTimeCorrect,Functional_preprocessing,"Correcting for slice-dependent delays, achieved by shifting the time series of each slice to temporally align all slices to a reference time-point.",2,148
+F-Field_map_correction,FieldMapCorrect,Functional_preprocessing,"Known also as distortion correction, correcting the field inhomogeneities cause geometric distortions of echo planar images.",2,35
+F-Unwarp,Unwarp,Functional_preprocessing,Estimation and removal of movement-by-susceptibility induced variance in<U+00A0>fMRI<U+00A0>time series.,2,33
+F-Combined_echos,EchoCombine,Functional_preprocessing,"Only applicable for scans with multiple echoes, this steps aims to combine the images from different echoes.",2,1
+F-Intensity_normalization,IntensNormalize,Functional_preprocessing,"Because MRI data does not have a specific unit, different MRI data might have different ranges of intensity values. Intensity normalization is performed to standardize the range of intensity values across all 4D volumes with a specific value.",2,34
+F-Grand_mean_scaling,GrandMeanScale,Functional_preprocessing,"Grand mean scaling sets the image mean, defined as the within-scan mean across all voxels and time points, to a predefined value. The grand mean is closely related to scanner parameters such as RF power or amplifier gain but not to neural mechanisms (Gavrilescu et al., 2002). Adjusting the grand mean via scaling makes analysis results more interpretable and comparable across subjects, sessions, and sites. It is also known as global mean scaling.",2,14
+F-Coregistration,Coregister,Functional_preprocessing,Co-registration of structural and functional images.,2,146
+F-Spatial_normalization,FuncSpaNorm,Functional_preprocessing,Normalization to standard space using the parameters from the structural normalization.,2,202
+F-Spatial_smooth,SpaSmooth,Functional_preprocessing,"Some variabilities may still occur after normalization, this step tackles this issue by averaging data points with their neighbours. This step also aims to increase signal to noise ratio.",2,135
+F-Extract_regressors,RegressorsExtract,Functional_preprocessing,"Extracting the regressors (DVARS, FD, etc.) to perform noise removal via F-Other_confound_regression.",2,4
+F-surface,FuncSurface,Functional_preprocessing,Transformation from volumetric space to surface.,2,18
+F-RETROICOR,RETROICOR,Noise_removal,"Removal of time-locked cardiac and respiratory artifacts proposed by Glover, et al. (2000).",4,3
+F-RVHRCOR,RVHRCOR,Noise_removal,"Correcting physiological noise using the combination of RETROICOR and the method proposed by Cang, et al. (2010) on removal of low-frequency respiratory and heart rate effects.",4,1
+F-ANATICOR,ANATICOR,Noise_removal,"Forming regressors from white matter tissue to reduce hardware-related artifact proposed by Jo, et al. (2010).",4,1
+F-PESTICA,PESTICA,Noise_removal,"Physiologic estimation by Temporal ICA, that estimates physiologic signals when external physiologic measures are not available (Shin, et al., 2022).",4,1
+F-CompCor,CompCor,Noise_removal,"Using principal component analyses, significant principal components are derived from noise regions of interest (ROI) in which the time series data are unlikely to be modulated by neural activity. These components are then included as nuisance parameters in the regressors (Behzadi, et al., 2007).",4,8
+F-tCompCor,tCompCor,Noise_removal,Implementing CompCor by Behzadi et al. (2007) where the the determination of noise ROI is based upon the temporal standard deviation of the time series data.,4,1
+F-aCompCor,aCompCor,Noise_removal,Implementing CompCor where the determination of noise ROI uses high-resolution anatomical data to define a region of interest composed primarily of white matter and cerebrospinal fluid.,4,16
+F-ME_ICA,ME_ICA,Noise_removal,"Only applicable for scans with multi echoes, this steps performs ICA in multi-echo fMRI.",4,1
+F-ArtRepair,ArtRepair,Noise_removal,"The toolbox improves fMRI analysis of high motion pediatric and clinical subjects. The toolbox includes special algorithms for motion adjustment, data repair, and noise filtering, and methods to find outlier subjects in group studies.<U+00A0>",4,2
+F-Temporal_detrending,TempDetrend,Noise_removal,"This step aims to remove drift components in fMRI time-series data by removing trends (linear, cubic, or quadratic).",4,76
+F-Global_signal,GlobalSigRegress,Noise_removal,The regression of global signal (mean from all voxels/areas).,4,67
+F-ICA_FIX,ICA_FIX,Noise_removal,"This method attempts to auto-classify ICA components into ""good"" vs ""bad"" components, so that the bad components can be removed from the time series fMRI data (Salimi-Khorshidi, et al., 2014).",4,13
+F-ICA_AROMA,ICA_AROMA,Noise_removal,"A data-driven method to identify and remove motion-related independent components from fMRI data (Pruim, et al., 2015). Unlike ICA-FIX, ICA_AROMA does not need retraining on the new dataset by employing four theoretically motivated features embedded in a simple and robust classifier.",4,5
+F-Temporal_filt,TempFilter,Noise_removal,"This steps performs filtering (low, band, or high) in fMRI time-series data.",4,174
+F-motion_regression,MotionRegress,Noise_removal,The regression of motion parameters obtained during alignment.,4,152
+F-Other_confound_regression,ConfoundRegress,Noise_removal,"Regression of other components aside from global signal and motion parameters, such as mean signal from CSF, WM, FD and DVARS parameter.",4,137
+F-PhysIO,PhysIO,Noise_removal,"Toolbox for the preprocessing of physiological recordings and model-based noise correction. It also implements RETORICOR in the modeling. Thus, similarly to RETROICOR, information on physiological signal is required (Kasper, et al., 2017).",4,0
+F-Regressors_filter,RegressorsFilter,Noise_removal,This step implements the same filter (as performed in time series data) to components which are used in the regression.,4,5
+F-Modular_filter_motion,ModularFilterMotion,Noise_removal,Combining band- /low- /highpass filter and motion regression in one matrix.,4,0
+F-wavelet_decomposition,WaveletDecompose,Noise_removal,This step decomposes the time-series into several bands of frequency. The next analysis is performed in the frequency domain of the chosen band.,4,6
+Atlas_definition,AtlasDefine,FC_def,This step maps the voxel-wise image to area-based data and extract the time series of each area.,1,210
+Time_series_ROI,ROITSDefine,FC_def,Calculating the time series of the brain areas from the voxel-wise time series.,1,143
+ROI_definition,ROIDefine,FC_def,It defines the regions of interest based on the atlas.,1,185
+Combine_block,BlockCombine,FC_def,It is applicable if are more than one block of fMRI runs (resting-state). This step combines several blocks.,1,16
+Compute_connectivity,ConnectCompute,FC_def,Computing the functional connectivity between brain areas.,1,207
+Connectivity_normalization,ConnectNormalize,FC_def,Normalizing the functional connectivity by z-scored Fisher transformation.,1,76
+Network_definition,NetworkDefine,Graph_analysis,Defining the modules (networks) of the brain and assigning each area to the corresponding module.,3,84
+Graph_characteristics,GraphDefine,Graph_analysis,"This step defines the network characteristics, weighted or binarized.",3,180
+Negative_correlation,NegCCHandle,Graph_analysis,This step defines whether and how to handle negative values in the correlation matrix.,3,89
+Sparsity_control,SparseControl,Graph_analysis,Defining the threshold to create a sparse network.,3,177
+Graph_measures,GraphMeasDefine,Graph_analysis,Quantifying the graph measures for further analyses.,3,209
+Result_aggregation,ResultAggregate,Graph_analysis,Aggregating the results (graph measures) across different thresholds.,3,25
